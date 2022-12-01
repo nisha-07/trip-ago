@@ -4,11 +4,13 @@ import { useState } from "react";
 export default function TripListWithCustomHook() {
     const [url, setUrl] = useState('http://localhost:3000/trips')
 
-    const { data: trips } = useFetch(url)
+    const { data: trips, isLoading, error } = useFetch(url)
 
     return (
         <div>
             <h2>Trip List With Custom Hook</h2>
+            {isLoading && <p>Loading trips...</p>}
+            {error && <p className="text-danger">Error while fetching data...</p>}
             {trips && trips.map((trip, index) => (
                 <div key={index}>
                     <p>{trip.title}</p>
